@@ -46,7 +46,7 @@ class Kimai_Translations
         $arr_files[] = "";
         $handle = opendir(WEBROOT . '/language/');
         while (false !== ($readdir = readdir($handle))) {
-            if ($readdir != '.' && $readdir != '..' && substr($readdir, 0, 1) != '.' && endsWith($readdir, '.php')) {
+            if ($readdir != '.' && $readdir != '..' && substr($readdir, 0, 1) != '.' && Kimai_Utility_StringUtility::endsWith($readdir, '.php')) {
                 $arr_files[] = str_replace(".php", "", $readdir);
             }
         }
