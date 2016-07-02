@@ -2,7 +2,6 @@
 
 class Kimai_Extensions
 {
-
     private $ext_configs = array();
     private $php_include_files = array();
     private $css_extension_files = array();
