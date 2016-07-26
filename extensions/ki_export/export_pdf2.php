@@ -125,7 +125,7 @@ class MYPDF extends BasePDF {
 
     $activity_string = (isset($this->columns['activity']) && !empty($row['activityName'])) ? $kga['lang']['export_extension']['expense'] . ': <i>' . $row['activityName'] . '</i>' : '';
     $user_string    = (isset($this->columns['user']) && !empty($row['username'])) ? $kga['lang']['export_extension']['by'] . ': <i>' . $row['username'] . '</i>' : '';
-    $comment_string = (isset($this->columns['comment']) && !empty($row['comment'])) ? $kga['lang']['comment'] . ': <i>' . nl2br($row['comment']) . '</i>' : '';
+    $comment_string = (isset($this->columns['description']) && !empty($row['description'])) ? $kga['lang']['description'] . ': <i>' . nl2br($row['description']) . '</i>' : '';
     $wage_string    = '<b>' . $this->money($row['wage']) . '</b>';
 
     $activity_fills_row = empty($user_string) || ($this->GetStringWidth($activity_string) + $this->GetStringWidth($user_string) > $w[1]);
@@ -264,8 +264,8 @@ class MYPDF extends BasePDF {
     else
       $trackingNumber_string = '';
 
-    if (isset($this->columns['comment']) && !empty($row['comment']))
-      $comment_string = $kga['lang']['comment'] . ': <i>' . nl2br($row['comment']) . '</i>';
+    if (isset($this->columns['description']) && !empty($row['description']))
+      $comment_string = $kga['lang']['description'] . ': <i>' . nl2br($row['description']) . '</i>';
     else
       $comment_string = '';
 

@@ -36,15 +36,15 @@ class MYPDF extends BasePDF
     {
         global $kga, $customerData, $projectData;
 
-        // Position at 1.5 cm from bottom 
+        // Position at 1.5 cm from bottom
         $this->SetY(-15);
 
         // customer data
         //$this->SetFont('helvetica', '', 8); // Set font
         //$this->Cell(80, 10, $customerData['name'].' ('.$projectData['pct_name'].')', 0, 0, 'L');
 
-        // Page number 
-        $this->SetFont('helvetica', 'I', 8); // Set font 
+        // Page number
+        $this->SetFont('helvetica', 'I', 8); // Set font
         $this->Cell(30, 10,
             $kga['lang']['export_extension']['page'] . ' ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(),
             0, 0, 'C');
@@ -81,14 +81,14 @@ class MYPDF extends BasePDF
             $w[1] -= 30;
         }
 
-        // Header 
+        // Header
         $this->printHeader($w, $header);
 
-        // Color and font restoration 
+        // Color and font restoration
         $this->SetFillColor(224, 235, 255);
         $this->SetTextColor(0);
         $this->SetFont('');
-        // Data 
+        // Data
         $fill = 0;
         $moneySum = 0;
         if ($_REQUEST['time_type'] == "dec_time") {
@@ -99,7 +99,7 @@ class MYPDF extends BasePDF
 
         foreach ($data as $row) {
 
-            $show_comment = ! empty($row['comment']) && isset($_REQUEST['print_comments']);
+            $show_comment = ! empty($row['description']) && isset($_REQUEST['print_comments']);
             // check if page break is nessessary
             if ($this->getPageHeight() - $this->pagedim[$this->page]['bm'] - ($this->getY() + 20 + ($show_comment ? 6 : 0)) < 0) {
                 $this->Cell(array_sum($w), 0, '', 'T');
@@ -126,7 +126,7 @@ class MYPDF extends BasePDF
                 $this->AddPage();
                 $this->printHeader($w, $header);
 
-                // Color and font restoration 
+                // Color and font restoration
                 $this->SetFillColor(224, 235, 255);
                 $this->SetTextColor(0);
                 $this->SetFont('');
@@ -164,7 +164,7 @@ class MYPDF extends BasePDF
                 $comment_line_width = 58;
                 // split comment in lines
                 $comment_lines = explode("\n",
-                    wordwrap(stripslashes($row['comment']), $comment_line_width, "\n", true));
+                    wordwrap(stripslashes($row['description']), $comment_line_width, "\n", true));
                 // loop through all comment lines an add a cell for each line
                 if (is_array($comment_lines)) {
                     // determine font sizes to work with
@@ -176,7 +176,7 @@ class MYPDF extends BasePDF
                     foreach ($comment_lines as $comment_line) {
                         $this->Cell($w[0], 6, '', 'L', 0, 'C', $fill);
                         $this->SetFont('', 'I', $comment_font_size);
-                        //$this->Cell($w[1], 6, $kga['lang']['comment'].': '.nl2br(Kimai_Format::addEllipsis($row['comment'],40)), 'LR', 0, 'L', $fill);
+                        //$this->Cell($w[1], 6, $kga['lang']['description'].': '.nl2br(Kimai_Format::addEllipsis($row['description'],40)), 'LR', 0, 'L', $fill);
                         $this->Cell($w[1], 6, $comment_line, 'LR', 0, 'L', $fill);
                         $this->SetFont('', '', $current_font_size);
                         if ($_REQUEST['time_type'] == "dec_time") {
